@@ -4,6 +4,7 @@ export interface Game {
   slug: string;
   background_image?: string;
   rating?: number;
+  gameId?: number | string;
   price?: number;
 }
   

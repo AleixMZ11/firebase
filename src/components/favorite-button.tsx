@@ -21,8 +21,8 @@ export default function FavoriteButton({ game }: { game: Game }) {
         return;
       }
   
-      // Asegúrate de usar el ID correcto
-      const gameId = game.id || game.gameId;
+      // Usar solo la propiedad id que está garantizada que existe
+      const gameId = game.id;
       
       if (!gameId) {
         console.warn('No se puede verificar favorito: ID de juego no válido', game);
@@ -53,9 +53,8 @@ export default function FavoriteButton({ game }: { game: Game }) {
       return;
     }
   
-    // Asegúrate de que estás usando el ID correcto del juego
-    // ya sea id o gameId dependiendo de la fuente
-    const gameId = game.id || game.gameId;
+    // Usar solo la propiedad id
+    const gameId = game.id;
     
     // Verificar que el juego tenga un ID válido
     if (!gameId) {
@@ -75,13 +74,13 @@ export default function FavoriteButton({ game }: { game: Game }) {
       } else {
         await setDoc(favoriteRef, {
           userId: user.uid,
-          gameId: gameId,
+          gameId: gameId, // Usar id como gameId
           name: game.name,
           slug: game.slug,
           background_image: game.background_image || null,
           rating: game.rating || 0,
           addedAt: new Date().toISOString(),
-          id: gameId // Asegúrate de incluir el ID del juego aquí también
+          id: gameId // Mantener coherencia con id
         });
         setIsFavorite(true);
       }
