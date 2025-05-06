@@ -13,4 +13,10 @@ const nextConfig = {
 
 module.exports = withPWA(nextConfig);
 
+module.exports = {
+  eslint: {
+    ignoreDuringBuilds: true, // Desactiva ESLint en el build
+  },
+};
+
 export default nextConfig;

@@ -1,5 +1,6 @@
 import { getSearchedGames } from "../lib/requests";
 import GameCard from "../components/card";
+import Image from "next/image";
 import { Game } from "../types/games.types";
 
 export default async function HomePage() {
@@ -14,10 +15,10 @@ export default async function HomePage() {
       {/* Hero Section */}
       <section className="relative rounded-2xl overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/90 to-indigo-700/90 z-10"></div>
-        <img 
-          src="https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" 
-          alt="Gaming Background" 
-          className="absolute inset-0 w-full h-full object-cover"
+        <Image 
+src="https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" 
+alt="Gaming Background" 
+className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="relative z-20 py-16 px-6 md:py-24 md:px-12 text-white max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-6xl font-extrabold mb-4">Bienvenido a Fireplay</h1>
@@ -74,7 +75,7 @@ export default async function HomePage() {
             </a>
           </div>
           <div className="hidden md:block">
-            <img src="/images/controller.png" alt="Game Controller" className="w-40 h-40" />
+            <Image src="/images/controller.png" alt="Game Controller" className="w-40 h-40" />
           </div>
         </div>
       </section>

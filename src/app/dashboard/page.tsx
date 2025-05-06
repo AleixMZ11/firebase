@@ -7,6 +7,7 @@ import { db } from '../../firebase/firebase';
 import { Game } from '../../types/games.types';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function DashboardPage() {
   const { user, loading } = useAuth();
@@ -88,8 +89,8 @@ export default function DashboardPage() {
             {favorites.slice(0, 4).map(game => (
               <Link href={`/game/${game.slug}`} key={game.id}>
                 <div className="flex items-center space-x-3 p-3 border rounded hover:bg-gray-50">
-                  <img 
-                    src={game.background_image} 
+                  <Image
+                    src={game.background_image || '/fallback-image.png'} 
                     alt={game.name} 
                     className="w-12 h-12 object-cover rounded"
                   />

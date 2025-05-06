@@ -2,17 +2,21 @@
 
 import { useCart } from '../../context/cart-context';
 import Link from 'next/link';
+import Image from 'next/image';
 
 // Precio ficticio generado con base en el rating del juego
-const calculatePrice = (rating: number) => {
-  return Math.max(19.99, rating * 10).toFixed(2);
+const calculatePrice = (rating: number | undefined) => {
+  // Proporcionar un valor predeterminado si rating es undefined
+  const safeRating = rating ?? 0;
+  return Math.max(19.99, safeRating * 10).toFixed(2);
 };
 
 export default function CartPage() {
   const { items, removeFromCart, updateQuantity, clearCart } = useCart();
 
   const totalPrice = items.reduce((total, item) => {
-    return total + parseFloat(calculatePrice(item.rating)) * item.quantity;
+    // No necesitas hacer parseFloat en toda la función, solo en el resultado final
+    return total + (parseFloat(calculatePrice(item.rating)) * item.quantity);
   }, 0).toFixed(2);
 
   if (items.length === 0) {
@@ -20,9 +24,9 @@ export default function CartPage() {
       <div className="max-w-3xl mx-auto p-6 my-10 text-center">
         <h1 className="text-3xl font-bold mb-6">Tu carrito está vacío</h1>
         <p className="mb-8">No tienes productos en tu carrito de compra.</p>
-        <Link href="/" className="text-blue-100 hover:text-white transition duration-200 font-medium">
-  Juegos
-</Link>
+        <Link href="/" className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700">
+          Explorar juegos
+        </Link>
       </div>
     );
   }
@@ -34,10 +38,12 @@ export default function CartPage() {
       <div className="space-y-4 mb-8">
         {items.map((item) => (
           <div key={item.id} className="flex items-center border-b pb-4">
-            <img 
-              src={item.background_image} 
+            <Image 
+              src={item.background_image || '/default-image.jpg'} 
               alt={item.name} 
-              className="w-20 h-20 object-cover rounded-lg"
+              width={80}
+              height={80}
+              className="object-cover rounded-lg"
             />
             
             <div className="ml-4 flex-1">
@@ -84,7 +90,7 @@ export default function CartPage() {
           Vaciar carrito
         </button>
         
-        <button className="bg-[var(--color-primary)] text-white px-6 py-2 rounded-lg">
+        <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
           Finalizar compra
         </button>
       </div>

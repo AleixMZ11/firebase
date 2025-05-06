@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { GameDetails } from "../types/games.types";
 
 export default function GameMainImages({ game }: { game: GameDetails }) {
@@ -14,7 +15,7 @@ export default function GameMainImages({ game }: { game: GameDetails }) {
   return (
     <div className="mb-10">
       <div className="relative w-full h-80 md:h-96 rounded-lg overflow-hidden mb-4">
-        <img 
+        <Image 
           src={selectedImage} 
           alt={game.name} 
           className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
@@ -31,7 +32,7 @@ export default function GameMainImages({ game }: { game: GameDetails }) {
               }`}
               onClick={() => setSelectedImage(image)}
             >
-              <img 
+              <Image 
                 src={image} 
                 alt={`${game.name} - imagen ${index + 1}`} 
                 className="w-full h-full object-cover"

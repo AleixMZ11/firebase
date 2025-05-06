@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Game } from '../types/games.types';
 import FavoriteButton from './favorite-button';
 import Rating from './rating';
@@ -45,7 +46,7 @@ export default function GameCard({ game }: { game: Game }) {
     <div className="bg-card rounded-lg overflow-hidden shadow-md transition-all hover:shadow-lg">
       <Link href={`/game/${game.slug}`}>
         <div className="relative h-48">
-          <img
+          <Image
             src={game.background_image || '/placeholder-game.jpg'}
             alt={game.name}
             className="w-full h-full object-cover"
