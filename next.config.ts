@@ -1,5 +1,3 @@
-import type { NextConfig } from "next";
-
 const withPWA = require('next-pwa')({
   dest: 'public',
   register: true,
@@ -9,14 +7,18 @@ const withPWA = require('next-pwa')({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-};
-
-module.exports = withPWA(nextConfig);
-
-module.exports = {
   eslint: {
     ignoreDuringBuilds: true, // Desactiva ESLint en el build
   },
+  images: {
+    domains: ['media.rawg.io'], // Si estás cargando imágenes desde esta fuente
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
+  },
 };
 
-export default nextConfig;
+module.exports = withPWA(nextConfig);

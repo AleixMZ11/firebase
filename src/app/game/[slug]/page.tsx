@@ -8,17 +8,20 @@ import AddToCartButton from "../../../components/add-to-cart-button";
 import FavoriteButton from "../../../components/favorite-button";
 import GameRatings from '../../../components/game-rating';
 
+// Elimina el "async" si getGameDetails no es asíncrono, o manténlo si lo es
 export default async function GameDetailPage({ params }: { params: { slug: string } }) {
-  // Esperamos a que la promesa de params se resuelva
-  const resolvedParams = await params;
-  const game: GameDetails = await getGameDetails(resolvedParams.slug);
+  // Elimina esta línea - es lo que causa el error
+  // const resolvedParams = await params;
+
+  // Usa directamente params.slug en lugar de resolvedParams.slug
+  const game = await getGameDetails(params.slug);
 
   if (!game) {
     notFound();
   }
   
   // Precio ficticio basado en el rating
-  const price = Math.max(19.99, game.rating * 10).toFixed(2);
+  const price = Math.max(19.99, (game.rating || 0) * 10).toFixed(2);
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
@@ -31,7 +34,7 @@ export default async function GameDetailPage({ params }: { params: { slug: strin
         <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10 text-white">
           <h1 className="text-3xl md:text-5xl font-bold mb-2">{game.name}</h1>
           <div className="flex items-center space-x-4">
-            <Rating rating={game.rating} />
+            <Rating rating={game.rating || 0} />
             <div className="flex space-x-2">
               {game.genres?.map((genre) => (
                 <span key={genre.name} className="bg-blue-600/80 text-white text-xs px-2 py-1 rounded">
@@ -42,6 +45,8 @@ export default async function GameDetailPage({ params }: { params: { slug: strin
           </div>
         </div>
       </div>
+
+      
       
       <div className="p-6 md:p-10">
         {/* Acciones e información principal */}
@@ -64,8 +69,8 @@ export default async function GameDetailPage({ params }: { params: { slug: strin
         
         {/* Información detallada */}
         <GameMainInfo game={game} />
-         {/* Añadir esto antes de la descripción o donde prefieras */}
-      <div className="px-6 md:px-10 mt-6">
+       {/* Añadir esto aquí para las valoraciones */}
+       <div className="px-6 md:px-10 mt-6">
         <GameRatings gameId={game.id} gameName={game.name} />
       </div>
         {/* Descripción */}
