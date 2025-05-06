@@ -8,12 +8,14 @@ import AddToCartButton from "../../../components/add-to-cart-button";
 import FavoriteButton from "../../../components/favorite-button";
 import GameRatings from '../../../components/game-rating';
 
-// Definición correcta de página de ruta dinámica en Next.js 15
-export default async function GameDetailPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+// Usar la definición correcta de tipos de página dinámica
+interface PageProps {
+  params: {
+    slug: string;
+  };
+}
+
+export default async function GameDetailPage({ params }: PageProps) {
   try {
     // Obtener detalles del juego por slug
     const game = await getGameDetails(params.slug);
